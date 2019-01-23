@@ -1,8 +1,9 @@
 /* custom notation:
-    \P means primary key
-    \U means unique
-    \Sec means secondary key
-    \F means foreign key
+    %P means primary key
+    %U means unique
+    %Sec means secondary key
+    %F means foreign key
+    %NN means non-null
 */
 
 SHOW DATABASES;
@@ -10,26 +11,26 @@ SHOW DATABASES;
 USE `database_name`;
 
 /* foreign key:
-    column used to reference other column (that is \P or at least \U) from other database
+    column used to reference other column (that is %P or at least %U) from other database
     !Must be same data type!
-    \F, \P, \U make up constraints
+    %F, %P, %U make up constraints
 */
 
 /* Index:
     used to increase speed to work with column.
-    \P and \U is automatically indexed by DB
-    but NOT \F
+    %P and %U is automatically indexed by DB
+    but NOT %F
 */
 
 /* one-to-one relationship
     users:
-    id\P, firstname, lastname
+    id%P, firstname, lastname
     7, albert, chan
     8, davis, belmont
     9, johnathon, fernadez
     -----------------
     item_lists:
-    id\P, user_id\U, item
+    id%P, user_id%U, item
     1, 7, thingy1
     2, 8, thingy2
     3, 9, thingy3
@@ -37,25 +38,57 @@ USE `database_name`;
 
 /* one-to-many relationship
     users:
-    id\P, firstname, lastname
+    id%P, firstname, lastname
     7, albert, chan
     8, davis, belmont
     9, johnathon, fernadez
     -----------------
     item_lists:
-    id\P, user_id, item
+    id%P, user_id, item
     1, 7, thingy1
     2, 7, thingy2
     3, 8, thingy3
 */
 
-
 /* many-to-many relationship
+    ...
+    ...
+    ...
     keep track of multiple one-to-many tables
 */
 
-/*
-JOIN function, from Reddit memes:
+
+/* Entity integrity
+    NEVER CHANGE Primary/Unique Key //change means new data? or same data got changed??!!
+    surrogate key: computer generated
+    natural key: human input
+*/
+
+/* Referential integrity
+    %F put more restriction on database. 
+    Otherwise, DB don't know shit about the relationship b/w tables and there will no be check
+    can be config ON DELETE, ON UPDATE
+*/
+
+/* Domain integrity
+    The integrity of data such as data type (INTEGER, STRING...), data range (1~100(difficult in MySQL), ENUM...), etc.
+    https://stackoverflow.com/questions/16073268/sql-integer-range-when-creating-tables
+
+*/
+
+/* Primary Key
+    the usual... %U %NN by default
+    surrogate and natural...
+    
+    Also: composite key
+        for intermediate table (many-to-many's intermediate table)
+*/
+
+/* Foreign Key cont.
+    foreign key itself is NOT %U or %NN
+*/
+
+/* JOIN function, from Reddit memes:
 =======================================================
 https://www.reddit.com/r/ProgrammerHumor/comments/a0qp9x/this_ones_for_all_the_sql_developers_out_there/eajxngi/
 
