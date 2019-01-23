@@ -1,6 +1,58 @@
+/* custom notation:
+    \P means primary key
+    \U means unique
+    \Sec means secondary key
+    \F means foreign key
+*/
+
 SHOW DATABASES;
 
 USE `database_name`;
+
+/* foreign key:
+    column used to reference other column (that is \P or at least \U) from other database
+    !Must be same data type!
+    \F, \P, \U make up constraints
+*/
+
+/* Index:
+    used to increase speed to work with column.
+    \P and \U is automatically indexed by DB
+    but NOT \F
+*/
+
+/* one-to-one relationship
+    users:
+    id\P, firstname, lastname
+    7, albert, chan
+    8, davis, belmont
+    9, johnathon, fernadez
+    -----------------
+    item_lists:
+    id\P, user_id\U, item
+    1, 7, thingy1
+    2, 8, thingy2
+    3, 9, thingy3
+*/
+
+/* one-to-many relationship
+    users:
+    id\P, firstname, lastname
+    7, albert, chan
+    8, davis, belmont
+    9, johnathon, fernadez
+    -----------------
+    item_lists:
+    id\P, user_id, item
+    1, 7, thingy1
+    2, 7, thingy2
+    3, 8, thingy3
+*/
+
+
+/* many-to-many relationship
+    keep track of multiple one-to-many tables
+*/
 
 /*
 JOIN function, from Reddit memes:
