@@ -86,6 +86,17 @@ USE `database_name`;
 
 /* Foreign Key cont.
     foreign key itself is NOT %U or %NN
+    relationship kinda like child table has a foreign key column that reference parent table's column
+    ON DELETE and ON UPDATE
+        RESTRICT (default, aka NO ACTION, may be different in other type of DB)
+            Cannot even delete "parent" row, throw ERROR
+        CASCADE
+            Do the same to the child.
+        SET NULL
+*/
+
+/* misc key words:
+    attribute and constraint
 */
 
 /* JOIN function, from Reddit memes:
