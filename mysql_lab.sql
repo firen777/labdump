@@ -343,7 +343,7 @@ REFERENCES `class`(`class_id`)
 ON UPDATE CASCADE
 ON DELETE CASCADE;
 /* on the subject of foreign key: https://www.w3schools.com/sql/sql_foreignkey.asp
-  constraint name is optional
+  CONSTRAINT name is optional
 */
 
 DESCRIBE `test`;
@@ -357,3 +357,124 @@ DESCRIBE `test`;
     | test_id  | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
     +----------+------------------+------+-----+---------+----------------+
 */
+
+ALTER TABLE `test` ADD `maxscore` INT NOT NULL AFTER `type`;
+DESCRIBE `test`;
+/*
+    +----------+------------------+------+-----+---------+----------------+
+    | Field    | Type             | Null | Key | Default | Extra          |
+    +----------+------------------+------+-----+---------+----------------+
+    | date     | date             | NO   |     | NULL    |                |
+    | type     | enum('T','Q')    | NO   |     | NULL    |                |
+    | maxscore | int(11)          | NO   |     | NULL    |                |
+    | class_id | int(10) unsigned | NO   | MUL | NULL    |                |
+    | test_id  | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+    +----------+------------------+------+-----+---------+----------------+
+*/
+
+CREATE TABLE `score`(
+	`student_id` INT UNSIGNED NOT NULL,
+	`event_id` INT UNSIGNED NOT NULL,
+	`score` INT NOT NULL,
+	PRIMARY KEY(`event_id`, `student_id`));
+DESCRIBE `score`;
+/*
+    +------------+------------------+------+-----+---------+-------+
+    | Field      | Type             | Null | Key | Default | Extra |
+    +------------+------------------+------+-----+---------+-------+
+    | student_id | int(10) unsigned | NO   | PRI | NULL    |       |
+    | event_id   | int(10) unsigned | NO   | PRI | NULL    |       |
+    | score      | int(11)          | NO   |     | NULL    |       |
+    +------------+------------------+------+-----+---------+-------+
+*/
+
+INSERT INTO `score` VALUES (1, 1, 100), (1, 2, 100);
+SELECT * FROM `score`;
+/*
+    +------------+----------+-------+
+    | student_id | event_id | score |
+    +------------+----------+-------+
+    |          1 |        1 |   100 |
+    |          1 |        2 |   100 |
+    +------------+----------+-------+
+*/
+
+-- INSERT INTO `score` VALUES (1, 1, 100); -- ERROR 1062 (23000): Duplicate entry '1-1' for key 'PRIMARY'
+
+INSERT INTO `test` VALUES
+	('2014-8-25', 'Q', 15, 1, NULL),
+	('2014-8-27', 'Q', 15, 1, NULL),
+	('2014-8-29', 'T', 30, 1, NULL),
+	('2014-8-29', 'T', 30, 2, NULL),
+	('2014-8-27', 'Q', 15, 4, NULL),
+	('2014-8-29', 'T', 30, 4, NULL);
+SELECT * FROM `test`;
+/*
+    +------------+------+----------+----------+---------+
+    | date       | type | maxscore | class_id | test_id |
+    +------------+------+----------+----------+---------+
+    | 2014-08-25 | Q    |       15 |        1 |       1 |
+    | 2014-08-27 | Q    |       15 |        1 |       2 |
+    | 2014-08-29 | T    |       30 |        1 |       3 |
+    | 2014-08-29 | T    |       30 |        2 |       4 |
+    | 2014-08-27 | Q    |       15 |        4 |       5 |
+    | 2014-08-29 | T    |       30 |        4 |       6 |
+    +------------+------+----------+----------+---------+
+
+    INSERT INTO `test` VALUES ('2014-8-29', 'Q', 15, 100, NULL);
+    ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails 
+    (`test1`.`test`, CONSTRAINT `ref_to_class` FOREIGN KEY (`class_id`) 
+    REFERENCES `class` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+*/
+
+CREATE TABLE `absence`(
+	`student_id` INT UNSIGNED NOT NULL,
+	`date` DATE NOT NULL,
+	PRIMARY KEY(`student_id`, date));
+DESCRIBE `absence`;
+/*
+    +------------+------------------+------+-----+---------+-------+
+    | Field      | Type             | Null | Key | Default | Extra |
+    +------------+------------------+------+-----+---------+-------+
+    | student_id | int(10) unsigned | NO   | PRI | NULL    |       |
+    | date       | date             | NO   | PRI | NULL    |       |
+    +------------+------------------+------+-----+---------+-------+
+*/
+
+ALTER TABLE `score` CHANGE `event_id` `test_id` 
+	INT UNSIGNED NOT NULL;
+DESCRIBE `score`;
+/*
+    +------------+------------------+------+-----+---------+-------+
+    | Field      | Type             | Null | Key | Default | Extra |
+    +------------+------------------+------+-----+---------+-------+
+    | student_id | int(10) unsigned | NO   | PRI | NULL    |       |
+    | test_id    | int(10) unsigned | NO   | PRI | NULL    |       |
+    | score      | int(11)          | NO   |     | NULL    |       |
+    +------------+------------------+------+-----+---------+-------+
+    ======================================================================= Before
+    +------------+------------------+------+-----+---------+-------+
+    | Field      | Type             | Null | Key | Default | Extra |
+    +------------+------------------+------+-----+---------+-------+
+    | student_id | int(10) unsigned | NO   | PRI | NULL    |       |
+    | event_id   | int(10) unsigned | NO   | PRI | NULL    |       |
+    | score      | int(11)          | NO   |     | NULL    |       |
+    +------------+------------------+------+-----+---------+-------+
+*/
+
+INSERT INTO `score` VALUES
+	(2, 1, 15),
+	...
+	(6, 2, 13);
+
+SELECT * FROM `score`;
+/*
+    +------------+---------+-------+
+    | student_id | test_id | score |
+    +------------+---------+-------+
+    |          1 |       1 |   100 |
+    |        .....      ....  .... |
+    |          5 |       6 |    27 |
+    +------------+---------+-------+
+*/
+
