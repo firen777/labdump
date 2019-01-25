@@ -514,3 +514,146 @@ SELECT `first_name`, `last_name`
     +------------+-----------+
 */
 
+RENAME TABLE 
+	`absence` to `absences`,
+	`class` to `classes`,
+	`score` to `scores`,
+	`student` to `students`,
+	`test` to `tests`;
+SHOW TABLES;
+/*
+    +-----------------+
+    | Tables_in_test1 |
+    +-----------------+
+    | absences        |
+    | classes         |
+    | scores          |
+    | students        |
+    | tests           |
+    +-----------------+
+*/
+
+-------------------------- Retrieve Operation -------------------------
+
+SELECT `first_name`, `last_name`, `state` 
+	FROM `students`
+	WHERE `state`= 'WA';
+/*
+    +------------+-----------+-------+
+    | first_name | last_name | state |
+    +------------+-----------+-------+
+    | Dale       | Cooper    | WA    |
+    | Harry      | Truman    | WA    |
+    +------------+-----------+-------+
+*/
+
+SELECT `first_name`, `last_name`, `birth_date`
+	FROM `students`
+	WHERE YEAR(`birth_date`) >= 1965;
+/*
+    +------------+-----------+------------+
+    | first_name | last_name | birth_date |
+    +------------+-----------+------------+
+    | Shelly     | Johnson   | 1970-12-12 |
+    | Bobby      | Briggs    | 1967-05-24 |
+    | Donna      | Hayward   | 1970-03-24 |
+    | Audrey     | Horne     | 1965-02-01 |
+    | James      | Hurley    | 1967-01-02 |
+    +------------+-----------+------------+
+
+    a. You can compare values with =, >, <, >=, <=, !=
+	
+	b. To get the month, day or year of a date use MONTH(), DAY(), or YEAR()
+*/
+
+SELECT `first_name`, `last_name`, `birth_date`
+	FROM `students`
+	WHERE MONTH(`birth_date`) = 2 || state='CA';
+/*
+    +------------+-----------+------------+
+    | first_name | last_name | birth_date |
+    +------------+-----------+------------+
+    | Dale       | Cooper    | 1959-02-22 |
+    | Bobby      | Briggs    | 1967-05-24 |
+    | Audrey     | Horne     | 1965-02-01 |
+    | Lucy       | Moran     | 1954-11-27 |
+    +------------+-----------+------------+
+    can use OR, can use ||, ... AND, &&, NOT, !
+*/
+
+SELECT `last_name`, `state`, `birth_date`
+	FROM `students`
+	WHERE DAY(`birth_date`) >= 12 && (`state`="CA" || `state`="NV");
+/*
+    +-----------+-------+------------+
+    | last_name | state | birth_date |
+    +-----------+-------+------------+
+    | Johnson   | NV    | 1970-12-12 |
+    | Briggs    | CA    | 1967-05-24 |
+    | Moran     | CA    | 1954-11-27 |
+    +-----------+-------+------------+
+*/
+
+SELECT `last_name`
+	FROM `students`
+	WHERE `last_name` IS NULL;
+-- empty set	
+SELECT `last_name`
+	FROM `students`
+	WHERE `last_name` IS NOT NULL;
+/*
+    +-----------+
+    | last_name |
+    +-----------+
+    | Cooper    |
+    | Truman    |
+    | Johnson   |
+    | Briggs    |
+    | Hayward   |
+    | Horne     |
+    | Hurley    |
+    | Moran     |
+    | Hill      |
+    | Brennan   |
+    +-----------+
+*/
+
+SELECT `first_name`, `last_name`
+	FROM `students`
+	ORDER BY `last_name`;
+/*
+    +------------+-----------+
+    | first_name | last_name |
+    +------------+-----------+
+    | Andy       | Brennan   |
+    | Bobby      | Briggs    |
+    | Dale       | Cooper    |
+    | Donna      | Hayward   |
+    | Tommy      | Hill      |
+    | Audrey     | Horne     |
+    | James      | Hurley    |
+    | Shelly     | Johnson   |
+    | Lucy       | Moran     |
+    | Harry      | Truman    |
+    +------------+-----------+
+*/
+
+SELECT `first_name`, `last_name`, `state`
+	FROM `students`
+	ORDER BY `state` DESC, `last_name` ASC;
+/*
+    +------------+-----------+-------+
+    | first_name | last_name | state |
+    +------------+-----------+-------+
+    | Dale       | Cooper    | WA    |
+    | Harry      | Truman    | WA    |
+    | James      | Hurley    | NY    |
+    | Shelly     | Johnson   | NV    |
+    | Andy       | Brennan   | NC    |
+    | Audrey     | Horne     | MI    |
+    | Donna      | Hayward   | IA    |
+    | Bobby      | Briggs    | CA    |
+    | Lucy       | Moran     | CA    |
+    | Tommy      | Hill      | AZ    |
+    +------------+-----------+-------+
+*/
