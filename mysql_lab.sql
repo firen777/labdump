@@ -478,3 +478,39 @@ SELECT * FROM `score`;
     +------------+---------+-------+
 */
 
+SELECT * FROM `student`;
+/*
+    +------------+-----------+------------------+-----------------+--------------+-------+-------+--------------+------------+-----+---------------------+------------+------------+
+    | first_name | last_name | email            | street          | city         | state | zip   | phone        | birth_date | sex | date_entered        | lunch_cost | student_id |
+    +------------+-----------+------------------+-----------------+--------------+-------+-------+--------------+------------+-----+---------------------+------------+------------+
+    | Dale       | Cooper    | dcooper@aol.com  | 123 Main St     | Yakima       | WA    | 98901 | 792-223-8901 | 1959-02-22 | M   | 2019-01-25 11:44:14 |        3.5 |          1 |
+    | Harry      | Truman    | htruman@aol.com  | 202 South St    | Vancouver    | WA    | 98660 | 792-223-9810 | 1946-01-24 | M   | 2019-01-25 11:45:09 |        3.5 |          2 |
+    | Shelly     | Johnson   | sjohnson@aol.com | 9 Pond Rd       | Sparks       | NV    | 89431 | 792-223-6734 | 1970-12-12 | F   | 2019-01-25 11:45:09 |        3.5 |          3 |
+    | Bobby      | Briggs    | bbriggs@aol.com  | 14 12th St      | San Diego    | CA    | 92101 | 792-223-6178 | 1967-05-24 | M   | 2019-01-25 11:45:09 |        3.5 |          4 |
+    | Donna      | Hayward   | dhayward@aol.com | 120 16th St     | Davenport    | IA    | 52801 | 792-223-2001 | 1970-03-24 | F   | 2019-01-25 11:45:09 |        3.5 |          5 |
+    | Audrey     | Horne     | ahorne@aol.com   | 342 19th St     | Detroit      | MI    | 48222 | 792-223-2001 | 1965-02-01 | F   | 2019-01-25 11:45:09 |        3.5 |          6 |
+    | James      | Hurley    | jhurley@aol.com  | 2578 Cliff St   | Queens       | NY    | 11427 | 792-223-1890 | 1967-01-02 | M   | 2019-01-25 11:45:09 |        3.5 |          7 |
+    | Lucy       | Moran     | lmoran@aol.com   | 178 Dover St    | Hollywood    | CA    | 90078 | 792-223-9678 | 1954-11-27 | F   | 2019-01-25 11:45:09 |        3.5 |          8 |
+    | Tommy      | Hill      | thill@aol.com    | 672 High Plains | Tucson       | AZ    | 85701 | 792-223-1115 | 1951-12-21 | M   | 2019-01-25 11:45:09 |        3.5 |          9 |
+    | Andy       | Brennan   | abrennan@aol.com | 281 4th St      | Jacksonville | NC    | 28540 | 792-223-8902 | 1960-12-27 | M   | 2019-01-25 11:45:13 |        3.5 |         10 |
+    +------------+-----------+------------------+-----------------+--------------+-------+-------+--------------+------------+-----+---------------------+------------+------------+
+*/
+SELECT `first_name`, `last_name` 
+	FROM `student`;
+/*
+    +------------+-----------+
+    | first_name | last_name |
+    +------------+-----------+
+    | Dale       | Cooper    |
+    | Harry      | Truman    |
+    | Shelly     | Johnson   |
+    | Bobby      | Briggs    |
+    | Donna      | Hayward   |
+    | Audrey     | Horne     |
+    | James      | Hurley    |
+    | Lucy       | Moran     |
+    | Tommy      | Hill      |
+    | Andy       | Brennan   |
+    +------------+-----------+
+*/
+
