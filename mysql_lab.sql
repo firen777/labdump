@@ -99,6 +99,16 @@ USE `database_name`;
     attribute and constraint
 */
 
+/* Normalization:
+    Normal Form (NF)
+    1st NF: 
+    2nd NF:
+    3rd NF:
+    must be done in sequential order
+*/
+
+
+
 /* JOIN function, from Reddit memes:
 =======================================================
 https://www.reddit.com/r/ProgrammerHumor/comments/a0qp9x/this_ones_for_all_the_sql_developers_out_there/eajxngi/
@@ -142,3 +152,74 @@ it can be clearer to do write `CROSS JOIN LATERAL (SELECT ...) AS subq`
 since lateral joins often lack intersting join clauses.
 
 */
+
+-----------------------------------------------------------------------------------------------------
+
+/* Operation tutorial*/
+
+/* On quote vs back-tick:
+    https://stackoverflow.com/questions/11321491/when-to-use-single-quotes-double-quotes-and-back-ticks-in-mysql
+    > Backticks are to be used for table and column identifiers, but are only necessary when the identifier is a MySQL reserved keyword, or when the identifier contains whitespace characters or characters beyond a limited set (see below)
+    > Single quotes should be used for string values like in the VALUES() list
+    example:
+    ```
+    INSERT INTO `table` (`id`, `col1`, `col2`, `date`, `updated`) 
+                       VALUES (NULL, 'val1', 'val2', '2001-01-01', NOW())
+    ```
+
+*/
+
+CREATE DATABASE `test1`;
+
+USE `test1`;
+
+SELECT DATABASE();
+/*show currently selected DB:
+    +------------+
+    | DATABASE() |
+    +------------+
+    | test1      |
+    +------------+
+*/
+
+CREATE TABLE `student`(
+`first_name` VARCHAR(30) NOT NULL,
+`last_name` VARCHAR(30) NOT NULL,
+`email` VARCHAR(60) NULL,
+`street` VARCHAR(50) NOT NULL,
+`city` VARCHAR(40) NOT NULL,
+`state` CHAR(2) NOT NULL DEFAULT 'PA', --fixed length
+`zip` MEDIUMINT UNSIGNED NOT NULL,
+`phone` VARCHAR(20) NOT NULL,
+`birth_date` DATE NOT NULL,
+`sex` ENUM('M', 'F') NOT NULL,
+`date_entered` TIMESTAMP,
+`lunch_cost` FLOAT NULL,
+`student_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY
+);
+
+SHOW TABLES;
+
+/* Atomic Tables:
+    Every table should focus on describing JUST one thing (customer, student, item etc.)
+    Don't have redundant column (no property1, property2, property3 etc. (one-to-many))
+    Don't have multiple val in one col
+    Normalization (explain later)
+*/
+
+/* On the subject of Type:
+    CHAR: fixed length char string
+    VARCHAR: Vari length char string
+    BLOB: 2^16 bytes data
+    BIGINT: 64 bit int
+    FLOAT: float 
+    DOUBLE: double
+    ENUM: analogy- radio fields (only accepted values are those listed, may only choose one)
+    SET: analogy- checkbox fields (only accepted values are those listed, may choose multiple)
+*/
+
+DESCRIBE `student`; -- show schema
+
+INSERT INTO `student` VALUES('Dale', 'Cooper', 'dcooper@aol.com', 
+	'123 Main St', 'Yakima', 'WA', 98901, '792-223-8901', "1959-2-22",
+	'M', NOW(), 3.50, NULL);
