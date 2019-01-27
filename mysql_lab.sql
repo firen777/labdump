@@ -657,3 +657,191 @@ SELECT `first_name`, `last_name`, `state`
     | Tommy      | Hill      | AZ    |
     +------------+-----------+-------+
 */
+
+SELECT `first_name`, `last_name`
+	FROM `students`;
+SELECT `first_name`, `last_name`
+	FROM `students`
+	LIMIT 5, 10;
+/*
+    +------------+-----------+
+    | first_name | last_name |
+    +------------+-----------+
+    | Dale       | Cooper    |
+    | Harry      | Truman    |
+    | Shelly     | Johnson   |
+    | Bobby      | Briggs    |
+    | Donna      | Hayward   |
+    | Audrey     | Horne     |
+    | James      | Hurley    |
+    | Lucy       | Moran     |
+    | Tommy      | Hill      |
+    | Andy       | Brennan   |
+    +------------+-----------+
+    --=========================--
+    +------------+-----------+
+    | first_name | last_name |
+    +------------+-----------+
+    | Audrey     | Horne     |
+    | James      | Hurley    |
+    | Lucy       | Moran     |
+    | Tommy      | Hill      |
+    | Andy       | Brennan   |
+    +------------+-----------+
+*/
+
+SELECT CONCAT(`first_name`, ' ', `last_name`) AS `Name`,
+	CONCAT(`city`, ', ', `state`) AS `Hometown`
+	FROM `students`;
+/*
+    +----------------+------------------+
+    | Name           | Hometown         |
+    +----------------+------------------+
+    | Dale Cooper    | Yakima, WA       |
+    | Harry Truman   | Vancouver, WA    |
+    | Shelly Johnson | Sparks, NV       |
+    | Bobby Briggs   | San Diego, CA    |
+    | Donna Hayward  | Davenport, IA    |
+    | Audrey Horne   | Detroit, MI      |
+    | James Hurley   | Queens, NY       |
+    | Lucy Moran     | Hollywood, CA    |
+    | Tommy Hill     | Tucson, AZ       |
+    | Andy Brennan   | Jacksonville, NC |
+    +----------------+------------------+
+*/
+
+SELECT `last_name`, `first_name`
+	FROM `students`
+	WHERE `first_name` LIKE 'D%' OR `last_name` LIKE '%n';
+/*
+    +-----------+------------+
+    | last_name | first_name |
+    +-----------+------------+
+    | Cooper    | Dale       |
+    | Truman    | Harry      |
+    | Johnson   | Shelly     |
+    | Hayward   | Donna      |
+    | Moran     | Lucy       |
+    | Brennan   | Andy       |
+    +-----------+------------+
+    -- first_name start with 'D' || last_name end with 'n'. % means all characters
+*/
+
+SELECT `last_name`, `first_name`
+	FROM `students`
+	WHERE `first_name` LIKE '___y';
+/*
+    +-----------+------------+
+    | last_name | first_name |
+    +-----------+------------+
+    | Moran     | Lucy       |
+    | Brennan   | Andy       |
+    +-----------+------------+
+    '_' match single character
+*/
+
+SELECT DISTINCT `state`
+	FROM `students`
+	ORDER BY `state`;
+/*
+    +-------+
+    | state |
+    +-------+
+    | AZ    |
+    | CA    |
+    | IA    |
+    | MI    |
+    | NC    |
+    | NV    |
+    | NY    |
+    | WA    |
+    +-------+
+    see GROUP BY...
+*/
+
+SELECT COUNT(*)
+	FROM `students`;
+SELECT COUNT(*)
+	FROM `students`
+	WHERE `sex`='M';
+/*
+    +----------+
+    | COUNT(*) |
+    +----------+
+    |       10 |
+    +----------+
+    ====================
+    +----------+
+    | COUNT(*) |
+    +----------+
+    |        6 |
+    +----------+
+*/
+
+SELECT `sex`, COUNT(*)
+	FROM `students`
+	GROUP BY `sex`;
+SELECT `sex`, COUNT(*) 
+    FROM `students`;
+/*
+    +-----+----------+
+    | sex | COUNT(*) |
+    +-----+----------+
+    | M   |        6 |
+    | F   |        4 |
+    +-----+----------+
+    ====================
+    +-----+----------+
+    | sex | COUNT(*) |
+    +-----+----------+
+    | M   |       10 |
+    +-----+----------+
+    GROUP BY defines how the results will be grouped
+*/
+
+SELECT MONTH(`birth_date`) AS `Month`, COUNT(*)
+	FROM `students`
+	GROUP BY `Month`
+	ORDER BY `Month`;
+/*
+    +-------+----------+
+    | Month | COUNT(*) |
+    +-------+----------+
+    |     1 |        2 |
+    |     2 |        2 |
+    |     3 |        1 |
+    |     5 |        1 |
+    |    11 |        1 |
+    |    12 |        3 |
+    +-------+----------+
+*/
+
+SELECT `state`, COUNT(`state`) AS `Amount`
+	FROM `students`
+	GROUP BY `state`
+	HAVING `Amount` > 1;
+SELECT `state`, COUNT(`state`) AS `Amount`
+	FROM `students`
+	GROUP BY `state`;
+/*
+    +-------+--------+
+    | state | Amount |
+    +-------+--------+
+    | CA    |      2 |
+    | WA    |      2 |
+    +-------+--------+
+    =============================
+    +-------+--------+
+    | state | Amount |
+    +-------+--------+
+    | AZ    |      1 |
+    | CA    |      2 |
+    | IA    |      1 |
+    | MI    |      1 |
+    | NC    |      1 |
+    | NV    |      1 |
+    | NY    |      1 |
+    | WA    |      2 |
+    +-------+--------+
+*/
+
