@@ -845,3 +845,237 @@ SELECT `state`, COUNT(`state`) AS `Amount`
     +-------+--------+
 */
 
+SELECT
+	`test_id` AS `Test`,
+	MIN(`score`) AS `min`,
+	MAX(`score`) AS `max`,
+	MAX(`score`)-MIN(`score`) AS `range`,
+	SUM(`score`) AS `total`,
+	AVG(`score`) AS `average`
+	FROM `scores`
+	GROUP BY `test_id`;
+SELECT * FROM `scores`;
+/*
+    +------+------+------+-------+-------+---------+
+    | Test | min  | max  | range | total | average |
+    +------+------+------+-------+-------+---------+
+    |    1 |   13 |  100 |    87 |   171 | 28.5000 |
+    |    2 |   13 |  100 |    87 |   154 | 30.8000 |
+    |    3 |   26 |   27 |     1 |    79 | 26.3333 |
+    |    4 |   26 |   27 |     1 |    80 | 26.6667 |
+    |    5 |   13 |   15 |     2 |    41 | 13.6667 |
+    |    6 |   26 |   27 |     1 |    80 | 26.6667 |
+    +------+------+------+-------+-------+---------+
+    ======================================================
+    +------------+---------+-------+
+    | student_id | test_id | score |
+    +------------+---------+-------+
+    |          1 |       1 |   100 |
+    |          2 |       1 |    15 |
+    |          3 |       1 |    14 |
+    |          4 |       1 |    15 |
+    |          5 |       1 |    14 |
+    |          6 |       1 |    13 |
+    |          1 |       2 |   100 |
+    |          3 |       2 |    14 |
+    |          4 |       2 |    14 |
+    |          5 |       2 |    13 |
+    |          6 |       2 |    13 |
+    |          3 |       3 |    26 |
+    |          4 |       3 |    27 |
+    |          5 |       3 |    26 |
+    |          3 |       4 |    26 |
+    |          4 |       4 |    27 |
+    |          5 |       4 |    27 |
+    |          3 |       5 |    13 |
+    |          4 |       5 |    15 |
+    |          5 |       5 |    13 |
+    |          3 |       6 |    26 |
+    |          4 |       6 |    27 |
+    |          5 |       6 |    27 |
+    +------------+---------+-------+
+    =================================================
+    ABS(x) : Absolute Number: Returns the absolute value of the variable x.
+
+    ACOS(x), ASIN(x), ATAN(x), ATAN2(x,y), COS(x), COT(x), SIN(x), TAN(x) :Trigonometric Functions : They are used to relate the angles of a triangle to the lengths of the sides of a triangle.
+
+    AVG(column_name) : Average of Column : Returns the average of all values in a column. SELECT AVG(column_name) FROM table_name;
+
+    CEILING(x) : Returns the smallest number not less than x.
+
+    COUNT(column_name) : Count : Returns the number of non null values in the column. SELECT COUNT(column_name) FROM table_name;
+
+    DEGREES(x) : Returns the value of x, converted from radians to degrees.
+
+    EXP(x) : Returns e^x
+
+    FLOOR(x) : Returns the largest number not grater than x
+
+    LOG(x) : Returns the natural logarithm of x
+
+    LOG10(x) : Returns the logarithm of x to the base 10
+
+    MAX(column_name) : Maximum Value : Returns the maximum value in the column. SELECT MAX(column_name) FROM table_name;
+
+    MIN(column_name) : Minimum : Returns the minimum value in the column. SELECT MIN(column_name) FROM table_name;
+
+    MOD(x, y) : Modulus : Returns the remainder of a division between x and y
+
+    PI() : Returns the value of PI
+
+    POWER(x, y) : Returns x ^ Y
+
+    RADIANS(x) : Returns the value of x, converted from degrees to radians
+
+    RAND() : Random Number : Returns a random number between the values of 0.0 and 1.0
+
+    ROUND(x, d) : Returns the value of x, rounded to d decimal places
+
+    SQRT(x) : Square Root : Returns the square root of x
+
+    STD(column_name) : Standard Deviation : Returns the Standard Deviation of values in the column. SELECT STD(column_name) FROM table_name;
+
+    SUM(column_name) : Summation : Returns the sum of values in the column. SELECT SUM(column_name) FROM table_name;
+
+    TRUNCATE(x) : Returns the value of x, truncated to d decimal places
+*/
+
+INSERT INTO `absences` VALUES
+	(6, '2014-08-29'),
+	(7, '2014-08-29'),
+	(8, '2014-08-27');
+
+SELECT * FROM `absences`; 
+/*
+    +------------+------------+
+    | student_id | date       |
+    +------------+------------+
+    |          6 | 2014-08-29 |
+    |          7 | 2014-08-29 |
+    |          8 | 2014-08-27 |
+    +------------+------------+
+*/
+DESCRIBE `scores`;
+/*
+    +------------+------------------+------+-----+---------+-------+
+    | Field      | Type             | Null | Key | Default | Extra |
+    +------------+------------------+------+-----+---------+-------+
+    | student_id | int(10) unsigned | NO   | PRI | NULL    |       |
+    | test_id    | int(10) unsigned | NO   | PRI | NULL    |       |
+    | score      | int(11)          | NO   |     | NULL    |       |
+    +------------+------------------+------+-----+---------+-------+
+*/
+SELECT `student_id`, `test_id`
+	FROM `scores`
+	WHERE `student_id` = 6;
+/*
+    +------------+---------+
+    | student_id | test_id |
+    +------------+---------+
+    |          6 |       1 |
+    |          6 |       2 |
+    +------------+---------+
+*/	
+INSERT INTO `scores` VALUES
+	(6, 3, 24);
+DELETE FROM `absences` 
+	WHERE `student_id` = 6;
+SELECT * FROM `absences`;
+/*
+    +------------+------------+
+    | student_id | date       |
+    +------------+------------+
+    |          7 | 2014-08-29 |
+    |          8 | 2014-08-27 |
+    +------------+------------+
+*/
+
+ALTER TABLE `absences`
+	ADD COLUMN `test_taken` CHAR(1) NOT NULL DEFAULT 'F'
+	AFTER `student_id`;
+DESCRIBE `absences`;
+SELECT * FROM `absences`;
+/*
+    +------------+------------------+------+-----+---------+-------+
+    | Field      | Type             | Null | Key | Default | Extra |
+    +------------+------------------+------+-----+---------+-------+
+    | student_id | int(10) unsigned | NO   | PRI | NULL    |       |
+    | test_taken | char(1)          | NO   |     | F       |       |  <<<<<<<
+    | date       | date             | NO   | PRI | NULL    |       |
+    +------------+------------------+------+-----+---------+-------+
+    ========================================
+    +------------+------------+------------+
+    | student_id | test_taken | date       |
+    +------------+------------+------------+
+    |          7 | F          | 2014-08-29 |
+    |          8 | F          | 2014-08-27 |
+    +------------+------------+------------+
+                  ^^^^^^^^^^^^
+*/
+
+ALTER TABLE `absences`
+	MODIFY COLUMN `test_taken` ENUM('T','F') NOT NULL DEFAULT 'F';
+DESCRIBE `absences`;
+/*
+    +------------+------------------+------+-----+---------+-------+
+    | Field      | Type             | Null | Key | Default | Extra |
+    +------------+------------------+------+-----+---------+-------+
+    | student_id | int(10) unsigned | NO   | PRI | NULL    |       |
+    | test_taken | enum('T','F')    | NO   |     | F       |       |
+    | date       | date             | NO   | PRI | NULL    |       |
+    +------------+------------------+------+-----+---------+-------+
+                   ^^^^^^^^^^^^^^^^
+*/
+
+ALTER TABLE `absences`
+	DROP COLUMN `test_taken`;
+ALTER TABLE `absences`
+	CHANGE `student_id` `student_id` INT UNSIGNED NOT NULL;
+
+SELECT *
+    FROM `scores`
+    WHERE `student_id` = 4;
+UPDATE `scores` SET `score`=25 
+	WHERE `student_id`=4 AND `test_id`=3;
+SELECT *
+    FROM `scores`
+    WHERE `student_id` = 4;
+/*
+    +------------+---------+-------+
+    | student_id | test_id | score |
+    +------------+---------+-------+
+    |          4 |       1 |    15 |
+    |          4 |       2 |    14 |
+    |          4 |       3 |    27 | <<
+    |          4 |       4 |    27 |
+    |          4 |       5 |    15 |
+    |          4 |       6 |    27 |
+    +------------+---------+-------+
+    =============================================
+    +------------+---------+-------+
+    | student_id | test_id | score |
+    +------------+---------+-------+
+    |          4 |       1 |    15 |
+    |          4 |       2 |    14 |
+    |          4 |       3 |    25 | <<
+    |          4 |       4 |    27 |
+    |          4 |       5 |    15 |
+    |          4 |       6 |    27 |
+    +------------+---------+-------+
+*/
+
+SELECT `first_name`, `last_name`, `birth_date`
+	FROM `students`
+	WHERE `birth_date` 
+	BETWEEN '1960-1-1' AND '1970-1-1';
+/*
+    +------------+-----------+------------+
+    | first_name | last_name | birth_date |
+    +------------+-----------+------------+
+    | Bobby      | Briggs    | 1967-05-24 |
+    | Audrey     | Horne     | 1965-02-01 |
+    | James      | Hurley    | 1967-01-02 |
+    | Andy       | Brennan   | 1960-12-27 |
+    +------------+-----------+------------+
+*/
+

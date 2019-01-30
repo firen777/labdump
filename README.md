@@ -9,6 +9,8 @@
   - [Select Insert with foreign key](https://codeburst.io/insert-with-select-statement-for-columns-with-foreign-key-constraint-in-mysql-with-examples-f9ab57c8e4dd)
 - PHP (and CodeIgniter)
 - AWS Lambda
+- Backbone.js
+  - [Mosh's tutorial](https://www.youtube.com/playlist?list=PLTjRvDozrdlwn9IsHWEs9IQv3HQob4bH3)
 - Linux Shell
 - Git
 - GraphQL
