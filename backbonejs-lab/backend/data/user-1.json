@@ -1,0 +1,7 @@
+{
+    "id": "1",
+    "username": "User1",
+    "password": "password1",
+    "greeting": "Hello World",
+    "gender": "other"
+}

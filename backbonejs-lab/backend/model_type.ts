@@ -1,4 +1,4 @@
-interface IUser {
+export interface IUser {
     id: string;
     username: string;
     password: string;
@@ -6,7 +6,7 @@ interface IUser {
     gender: 'male'|'female'|'other';
 }
 
-interface IArticle {
+export interface IArticle {
     title: string;
     content: string;
     author: string; //reference to IUser.id
