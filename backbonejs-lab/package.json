@@ -1,0 +1,17 @@
+{
+  "name": "backbonejs-lab",
+  "version": "1.0.0",
+  "description": "[play List](https://www.youtube.com/playlist?list=PLTjRvDozrdlwn9IsHWEs9IQv3HQob4bH3)",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^11.9.5"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

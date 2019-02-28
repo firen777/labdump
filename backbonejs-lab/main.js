@@ -5,8 +5,13 @@ TestModel = Backbone.Model.extend({
   },
 });
 
+
+// let testModel1 = new TestModel();
+
+
 $(document).ready(()=>{
     console.log('jquery works');
 
     let testModel1 = new TestModel();
 });
+
