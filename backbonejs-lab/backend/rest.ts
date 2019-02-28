@@ -5,6 +5,7 @@ import {IArticle, IUser} from './model_type';
 
 const app = express();
 
+app.use(express.json())
 
 
 app.get('/user', (req, res)=>{
@@ -22,7 +23,8 @@ app.get('/user', (req, res)=>{
 });
 
 app.post('/user', (req, res)=>{
-    
+    let reqBody:IUser = req.body;
+    fs.writeFile(_makeUserJSONPath(reqBody.id), JSON.stringify(reqBody), (err)=>{if (err) res.send({msg:err}); else res.send({msg:"success"});});
 })
 
 app.listen(3003, ()=>{
