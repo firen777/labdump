@@ -16,3 +16,4 @@ Init tsconfig.json:
 Transpiling:
     tsc #just transpile everything
     tsc filename.ts #transpile filename.ts
+    tsc --outDir transpiled/

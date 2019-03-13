@@ -1,0 +1,6 @@
+const API_URL = "domain.name.com";
+const API_PATH = "/api/method/to/call";
+const API_PORT = 80;
+const X_API_KEY = "..." //key
+
+export {API_URL, API_PATH, X_API_KEY, API_PORT};

@@ -1,2 +1,5 @@
 /node_modules
 
+/transpiled/*.js
+
+sensitive_data.ts
